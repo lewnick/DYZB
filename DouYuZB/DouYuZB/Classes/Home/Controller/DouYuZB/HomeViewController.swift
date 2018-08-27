@@ -8,11 +8,40 @@
 
 import UIKit
 
+private let kTitleViewH: CGFloat = 40
+
 class HomeViewController: UIViewController {
 
+    //懒加载属性
+    private lazy var pageTitleView : PageTitleView = {
+        let titleFrame = CGRect(x: 0, y: kStatusBarH + kNavigationBarH, width: kScreenW, height: kTitleViewH)
+        let titles = ["推荐","游戏","娱乐","趣玩","开心"]
+        let titleView = PageTitleView(frame: titleFrame, titles: titles)
+//        titleView.backgroundColor = UIColor.purple
+        return titleView
+    }()
+    
+    private lazy var pageContentView: PageContentView = {
+        let contentH = kScreenH - kStatusBarH - kNavigationBarH - kTitleViewH
+        let contentFrame = CGRect(x: 0, y: kStatusBarH + kNavigationBarH + kTitleViewH, width: kScreenW, height: contentH)
+
+        var childrenVcs = [UIViewController]()
+        for _ in 0..<4
+        {
+            let vc = UIViewController()
+            vc.view.backgroundColor = UIColor(r : CGFloat(arc4random_uniform(255)), g : CGFloat(arc4random_uniform(255)), b : CGFloat(arc4random_uniform(255)))
+            childrenVcs.append(vc)
+        }
+        
+        let contentview = PageContentView(frame: contentFrame, childVcs: childrenVcs, parentController: self)
+        return contentview
+    }()
+    
+    
+    //系统回调函数
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //设置UI界面
         SetupUI()
         
     }
@@ -20,16 +49,28 @@ class HomeViewController: UIViewController {
 
 
 }
-
+//设置UI界面
 extension HomeViewController{
     
     private func SetupUI(){
+        //0.不需要调整UIScrollView的内边距
+        automaticallyAdjustsScrollViewInsets = false
+        
+        //1.设置导航栏
         SetupNavigationTapbar()
         
+        //2.添加TitleView
+        view.addSubview(pageTitleView)
+        
+        //3.添加ContentView
+        view.addSubview(pageContentView)
+        pageContentView.backgroundColor = UIColor.purple
     }
     
     private func SetupNavigationTapbar(){
+        //1.设置左侧的Item
         navigationItem.leftBarButtonItem = UIBarButtonItem(normalName: "logo")
+        //2.设置右侧的Item
         let sized = CGSize(width: 40, height: 40)
         let historyItem = UIBarButtonItem(normalName: "image_my_history", highlightedName: "Image_my_history_click", Size: sized)
         let searchItem = UIBarButtonItem(normalName: "btn_search", highlightedName: "btn_search_clicked", Size: sized)
@@ -37,3 +78,9 @@ extension HomeViewController{
         navigationItem.rightBarButtonItems = [historyItem, searchItem, qrcodeItem]
     }
 }
+
+
+
+
+
+
