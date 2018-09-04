@@ -13,15 +13,16 @@ private let kTitleViewH: CGFloat = 40
 class HomeViewController: UIViewController {
 
     //懒加载属性
-    private lazy var pageTitleView : PageTitleView = {
+    private lazy var pageTitleView : PageTitleView = { [weak self] in
         let titleFrame = CGRect(x: 0, y: kStatusBarH + kNavigationBarH, width: kScreenW, height: kTitleViewH)
         let titles = ["推荐","游戏","娱乐","趣玩"]
         let titleView = PageTitleView(frame: titleFrame, titles: titles)
-//        titleView.backgroundColor = UIColor.purple
+        titleView.delegate = (self as! PageTitleViewDelegate)
+        
         return titleView
     }()
     
-    private lazy var pageContentView: PageContentView = {
+    private lazy var pageContentView: PageContentView = { [weak self] in
         let contentH = kScreenH - kStatusBarH - kNavigationBarH - kTitleViewH
         let contentFrame = CGRect(x: 0, y: kStatusBarH + kNavigationBarH + kTitleViewH, width: kScreenW, height: contentH)
 
@@ -34,6 +35,8 @@ class HomeViewController: UIViewController {
         }
         
         let contentview = PageContentView(frame: contentFrame, childVcs: childrenVcs, parentController: self)
+        contentview.delegate = (self as! PageContentViewDelegate)
+        
         return contentview
     }()
     
@@ -46,8 +49,6 @@ class HomeViewController: UIViewController {
         
     }
     
-
-
 }
 //设置UI界面
 extension HomeViewController{
@@ -79,7 +80,20 @@ extension HomeViewController{
     }
 }
 
+//遵守PageTitleViewDelegate协议
+extension HomeViewController : PageTitleViewDelegate{
+    func pageTitleView(titleView: PageTitleView, selectedIndex index: Int) {
+        pageContentView.setCurrentIndex(currentIndex: index)
+    }
+}
 
+extension HomeViewController : PageContentViewDelegate{
+    func pageContentView(contentView: PageContentView, progress: CGFloat, sourceIndex: Int, targetIndex: Int) {
+        pageTitleView.setTitleProgress(progress: progress, sourceIndex: sourceIndex, targetIndex: targetIndex)
+    }
+    
+    
+}
 
 
 
