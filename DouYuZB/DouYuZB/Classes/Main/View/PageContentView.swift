@@ -38,7 +38,7 @@ class PageContentView: UIView {
         collectionView.isPagingEnabled = true
         collectionView.bounces = false
         
-        collectionView.dataSource = self as! UICollectionViewDataSource
+        collectionView.dataSource = self as? UICollectionViewDataSource
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: ContentCellID)
         
         collectionView.delegate = self
@@ -69,7 +69,7 @@ extension PageContentView {
     private func setupUI(){
         //1.将所有子控制器添加到父控制器中
         for childVc in childVcs{
-            parentController?.addChildViewController(childVc)
+            parentController?.addChild(childVc)
         }
         //2.添加UICollectionView,用于子Cell中存放控制器的View
         addSubview(collectionView)

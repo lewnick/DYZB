@@ -10,9 +10,28 @@ import UIKit
 
 class CollectionHeaderView: UICollectionReusableView {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var iconImageVIew: UIImageView!
+    
+    //定义模型属性
+    var group : AnchorGroup?{
+        didSet{
+            titleLabel.text = group?.tag_name
+            if (group?.small_icon_url == nil){
+                iconImageVIew.image = UIImage(named: "home_header_hot")
+            }else{
+            
+                let abc : urlWebString2UIImage = urlWebString2UIImage()
+                iconImageVIew.image = abc.loadWebImage(urlString: (group?.small_icon_url)!)
+                    
+          
+            }
+          
+            
+        }
     }
     
 }
+
+

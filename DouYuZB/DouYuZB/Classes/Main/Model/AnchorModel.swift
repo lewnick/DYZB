@@ -22,6 +22,8 @@ class AnchorModel: NSObject {
     @objc var nickname : String = ""
     //观看人数
     @objc var online : Int = 0
+    //所在地
+    @objc var anchor_city : String = ""
     
     init(dict : [String:NSObject]) {
         super.init()
