@@ -24,7 +24,7 @@ class CollectionHeaderView: UICollectionReusableView {
             
                 let abc : urlWebString2UIImage = urlWebString2UIImage()
                 iconImageVIew.image = abc.loadWebImage(urlString: (group?.small_icon_url)!)
-                    
+//                iconImageVIew.kf.setImage(with: URL(string: group!.small_icon_url))
           
             }
           

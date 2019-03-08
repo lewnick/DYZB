@@ -22,6 +22,8 @@ class AnchorGroup: NSObject {
     @objc var tag_name : String = "default"
     //组显示的图标
     @objc var small_icon_url : String = "home_header_normal"
+    //组显示的大图标
+    @objc var icon_url : String = ""
     
     //定义主播的模型对象数组
     @objc lazy var anchors : [AnchorModel] = [AnchorModel]()

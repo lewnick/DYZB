@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class CollectionBaseCell: UICollectionViewCell {
     
@@ -22,7 +23,7 @@ class CollectionBaseCell: UICollectionViewCell {
             //1.取出在线人数显示的文字
             var onlineStr : String = ""
             if anchor.online >= 10000{
-                onlineStr = "\(Int(anchor.online / 10000))万在线"
+                onlineStr = "\(Int(anchor.online / 10000)).\(Int(anchor.online / 1000) - ( Int(anchor.online / 10000) * 10 ))万在线"
             }else{
                 onlineStr = "\(anchor.online)在线"
             }
