@@ -13,8 +13,8 @@ class RecomandViewModel {
     //0 1 2-12
     lazy var anchorGroups : [AnchorGroup] = [AnchorGroup]()
     lazy var cycleModels : [CycleModel] = [CycleModel]()
-    private lazy var bigDataGroup : AnchorGroup = AnchorGroup()
-    private lazy var prettyGroup : AnchorGroup = AnchorGroup()
+    fileprivate lazy var bigDataGroup : AnchorGroup = AnchorGroup()
+    fileprivate lazy var prettyGroup : AnchorGroup = AnchorGroup()
 }
 
 //发送网络请求

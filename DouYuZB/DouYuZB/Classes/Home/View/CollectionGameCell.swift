@@ -19,7 +19,13 @@ class CollectionGameCell: UICollectionViewCell {
             //image下面的Label 一定要添加高度固定值
             //image最好有上下约束
             titleLabel.text = group?.tag_name
-            imageview.kf.setImage(with: URL(string: group?.icon_url ?? ""), placeholder: UIImage(named: "home_more_btn"), options: nil, progressBlock: nil, completionHandler: nil)
+            if let url = URL(string: group?.icon_url ?? ""){
+                imageview.kf.setImage(with: url)
+            }else{
+                imageview.image = UIImage(named: "home_more_btn")
+            }
+            
+//            imageview.kf.setImage(with: URL(string: group?.icon_url ?? ""), placeholder: UIImage(named: "home_more_btn"), options: nil, progressBlock: nil, completionHandler: nil)
         }
     }
     

@@ -16,7 +16,7 @@ enum methodType {
 
 class NetworkTools {
     
-    class func requestData(type : methodType, URLString : String, parameters : [String:NSString]? = nil, finishedCallback : @escaping (_ result : AnyObject) ->()){
+    class func requestData(type : methodType, URLString : String, parameters : [String:Any]? = nil, finishedCallback : @escaping (_ result : AnyObject) ->()){
         
         //1.获取类型
         
